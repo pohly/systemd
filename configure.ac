@@ -693,6 +693,30 @@ AS_HELP_STRING([--with-smack-default-process-label=STRING],
         [AC_DEFINE_UNQUOTED(SMACK_DEFAULT_PROCESS_LABEL, ["$withval"], [Default SMACK label for executed processes])],
         [])
 
+AC_ARG_WITH(smack-accesses-config,
+AS_HELP_STRING([--with-smack-accesses-config=DIR],
+        [path to Smack accesses config directory (default /etc/smack/accesses.d)]),
+        [],
+        [with_smack_accesses_config=${sysconfdir}/smack/accesses.d])
+AX_NORMALIZE_PATH([with_smack_accesses_config])
+AC_DEFINE_UNQUOTED(SMACK_ACCESSES_CONFIG, ["$with_smack_accesses_config"], [Smack accesses config directory])
+
+AC_ARG_WITH(smack-cipso-config,
+AS_HELP_STRING([--with-smack-cipso-config=DIR],
+        [path to Smack CIPSO config directory (default /etc/smack/cipso.d)]),
+        [],
+        [with_smack_cipso_config=${sysconfdir}/smack/cipso.d])
+AX_NORMALIZE_PATH([with_smack_cipso_config])
+AC_DEFINE_UNQUOTED(SMACK_CIPSO_CONFIG, ["$with_smack_cipso_config"], [Smack CIPSO config directory])
+
+AC_ARG_WITH(smack-netlabel-config,
+AS_HELP_STRING([--with-smack-netlabel-config=DIR],
+        [path to Smack netlabel config directory (default /etc/smack/netlabel.d)]),
+        [],
+        [with_smack_netlabel_config=${sysconfdir}/smack/netlabel.d])
+AX_NORMALIZE_PATH([with_smack_netlabel_config])
+AC_DEFINE_UNQUOTED(SMACK_NETLABEL_CONFIG, ["$with_smack_netlabel_config"], [Smack netlabel config directory])
+
 # ------------------------------------------------------------------------------
 AC_ARG_ENABLE([gcrypt],
         AS_HELP_STRING([--disable-gcrypt],[Disable optional GCRYPT support]),

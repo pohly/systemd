@@ -276,13 +276,13 @@ int mac_smack_setup(bool *loaded_policy) {
 
         assert(loaded_policy);
 
-        r = write_access2_rules("/etc/smack/accesses.d/");
+        r = write_access2_rules(SMACK_ACCESSES_CONFIG);
         switch(r) {
         case -ENOENT:
                 log_debug("Smack is not enabled in the kernel.");
                 return 0;
         case ENOENT:
-                log_debug("Smack access rules directory '/etc/smack/accesses.d/' not found");
+                log_debug("Smack access rules directory " SMACK_ACCESSES_CONFIG " not found");
                 return 0;
         case 0:
                 log_info("Successfully loaded Smack policies.");
@@ -308,13 +308,13 @@ int mac_smack_setup(bool *loaded_policy) {
                 log_warning_errno(r, "Failed to set SMACK netlabel rule \"127.0.0.1 -CIPSO\": %m");
 #endif
 
-        r = write_cipso2_rules("/etc/smack/cipso.d/");
+        r = write_cipso2_rules(SMACK_CIPSO_CONFIG);
         switch(r) {
         case -ENOENT:
                 log_debug("Smack/CIPSO is not enabled in the kernel.");
                 return 0;
         case ENOENT:
-                log_debug("Smack/CIPSO access rules directory '/etc/smack/cipso.d/' not found");
+                log_debug("Smack/CIPSO access rules directory " SMACK_CIPSO_CONFIG " not found");
                 break;
         case 0:
                 log_info("Successfully loaded Smack/CIPSO policies.");
@@ -324,13 +324,13 @@ int mac_smack_setup(bool *loaded_policy) {
                 break;
         }
 
-        r = write_netlabel_rules("/etc/smack/netlabel.d/");
+        r = write_netlabel_rules(SMACK_NETLABEL_CONFIG);
         switch(r) {
         case -ENOENT:
                 log_debug("Smack/CIPSO is not enabled in the kernel.");
                 return 0;
         case ENOENT:
-                log_debug("Smack network host rules directory '/etc/smack/netlabel.d/' not found");
+                log_debug("Smack network host rules directory " SMACK_NETLABEL_CONFIG " not found");
                 break;
         case 0:
                 log_info("Successfully loaded Smack network host rules.");
